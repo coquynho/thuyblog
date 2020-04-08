@@ -49,7 +49,7 @@ class User
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="authorId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="author")
      */
     private $blogs;
 
@@ -147,7 +147,7 @@ class User
     {
         if (!$this->blogs->contains($blog)) {
             $this->blogs[] = $blog;
-            $blog->setAuthorId($this);
+            $blog->setAuthor($this);
         }
 
         return $this;
@@ -158,8 +158,8 @@ class User
         if ($this->blogs->contains($blog)) {
             $this->blogs->removeElement($blog);
             // set the owning side to null (unless already changed)
-            if ($blog->getAuthorId() === $this) {
-                $blog->setAuthorId(null);
+            if ($blog->getAuthor() === $this) {
+                $blog->setAuthor(null);
             }
         }
 
